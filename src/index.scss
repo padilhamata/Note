@@ -21,9 +21,33 @@ body {
   @include box-shadow(2);
 
   &_container {
+    display: flex;
+    align-items: center;
     margin: 0 auto;
     padding: 12px $app-padding;
     max-width: $container-max-width;
+  }
+  &_brand {
+    flex: 1;
+  }
+
+  &_action {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+    &--rotation {
+      @include rotation();
+    }
   }
 }
 
