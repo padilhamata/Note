@@ -11,9 +11,14 @@ class App extends React.Component {
   state = {
     notes: [],
     isLoading: false,
+    isMenuOpen: false,
     reloadHasError: false,
     saveHasError: false
   };
+
+  componentDidCatch() {
+    this.setState({ reloadHasError: true });
+  }
 
   componentDidMount() {
     this.handleReload();
@@ -96,6 +101,10 @@ class App extends React.Component {
       });
   };
 
+  handleOpenMenu = () => {
+    this.setState({ isMenuOpen: true });
+  };
+
   render() {
     const { notes, isLoading, reloadHasError, saveHasError } = this.state;
 
@@ -107,6 +116,7 @@ class App extends React.Component {
           onSaveRetry={() => {
             this.handleSave(notes);
           }}
+          onOpenMenu={this.handleOpenMenu}
         />
         <div className="container">
           {reloadHasError ? (
