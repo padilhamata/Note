@@ -30609,7 +30609,79 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34487,79 +34559,7 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","react-router":"../node_modules/react-router/esm/react-router.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/uuid/lib/rng-browser.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","react-router":"../node_modules/react-router/esm/react-router.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/uuid/lib/rng-browser.js":[function(require,module,exports) {
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
@@ -34732,7 +34732,179 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/rng":"../node_modules/uuid/lib/rng-browser.js","./lib/bytesToUuid":"../node_modules/uuid/lib/bytesToUuid.js"}],"components/NewNote.js":[function(require,module,exports) {
+},{"./lib/rng":"../node_modules/uuid/lib/rng-browser.js","./lib/bytesToUuid":"../node_modules/uuid/lib/bytesToUuid.js"}],"components/AppBar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AppBar = function AppBar(_ref) {
+  var isLoading = _ref.isLoading,
+      saveHasError = _ref.saveHasError,
+      onSaveRetry = _ref.onSaveRetry,
+      onOpenMenu = _ref.onOpenMenu;
+  return _react.default.createElement("div", {
+    className: "app-bar"
+  }, _react.default.createElement("div", {
+    className: "app-bar_container"
+  }, _react.default.createElement("button", {
+    className: "app-bar_action",
+    onClick: onOpenMenu
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "menu")), _react.default.createElement("span", {
+    className: "app-bar_brand"
+  }, "Note.js"), isLoading && _react.default.createElement("button", {
+    className: "app-bar_action app-bar_action--rotation"
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "refresh")), saveHasError && _react.default.createElement("button", {
+    className: "app-bar_action app-bar_action--danger",
+    onClick: onSaveRetry
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "cloud_off"))));
+};
+
+var _default = AppBar;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
+var define;
+/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		// register as 'classnames', consistent with npm package name
+		define('classnames', [], function () {
+			return classNames;
+		});
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+},{}],"components/NavigationDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NaviagtionDrawer = function NaviagtionDrawer(_ref) {
+  var isOpen = _ref.isOpen,
+      onCloseMenu = _ref.onCloseMenu,
+      history = _ref.history;
+  return _react.default.createElement("div", {
+    className: (0, _classnames.default)("navigation-drawer", {
+      "navigation-drawer--open": isOpen
+    })
+  }, _react.default.createElement("div", {
+    className: "navigation-drawer_head"
+  }, _react.default.createElement("button", {
+    className: "navigation-drawer_head_button",
+    onClick: onCloseMenu
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "close"))), _react.default.createElement("div", {
+    className: "navigation-drawer_menu"
+  }, _react.default.createElement("button", {
+    className: "navigation-drawer_menu_item",
+    onClick: function onClick() {
+      onCloseMenu();
+      history.push("/");
+    }
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "note"), "Notas"), _react.default.createElement("button", {
+    className: "navigation-drawer_menu_item",
+    onClick: function onClick() {
+      onCloseMenu();
+      history.push("/about");
+    }
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "info"), "Sobre")));
+};
+
+var _default = (0, _reactRouterDom.withRouter)(NaviagtionDrawer);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"containers/About.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var About = function About() {
+  return _react.default.createElement("div", {
+    className: "about"
+  }, _react.default.createElement("h1", null, "Note.js"));
+};
+
+var _default = About;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/NewNote.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34822,62 +34994,7 @@ function (_React$Component) {
 
 var _default = NewNote;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
-var define;
-/*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
-				var inner = classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-		// register as 'classnames', consistent with npm package name
-		define('classnames', [], function () {
-			return classNames;
-		});
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-},{}],"components/Note.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"components/Note.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35057,7 +35174,7 @@ var NoteList = function NoteList(_ref) {
 
 var _default = NoteList;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Note":"components/Note.js"}],"components/AppBar.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Note":"components/Note.js"}],"components/Error.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35069,37 +35186,58 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AppBar = function AppBar(_ref) {
-  var isLoading = _ref.isLoading,
-      saveHasError = _ref.saveHasError,
-      onSaveRetry = _ref.onSaveRetry,
-      onOpenMenu = _ref.onOpenMenu;
-  return _react.default.createElement("div", {
-    className: "app-bar"
-  }, _react.default.createElement("div", {
-    className: "app-bar_container"
-  }, _react.default.createElement("button", {
-    className: "app-bar_action",
-    onClick: onOpenMenu
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "menu")), _react.default.createElement("span", {
-    className: "app-bar_brand"
-  }, "Note.js"), isLoading && _react.default.createElement("button", {
-    className: "app-bar_action app-bar_action--rotation"
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "refresh")), saveHasError && _react.default.createElement("button", {
-    className: "app-bar_action app-bar_action--danger",
-    onClick: onSaveRetry
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "cloud_off"))));
+var Error = function Error(_ref) {
+  var onRetry = _ref.onRetry;
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Ops!"), _react.default.createElement("p", null, "Ocorreu um erro inesperado ao carregar a lista de notas."), _react.default.createElement("button", {
+    className: "error_button",
+    onClick: onRetry
+  }, "Tentar novamente"));
 };
 
-var _default = AppBar;
+var _default = Error;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"services/NoteService.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"containers/Notes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _NewNote = _interopRequireDefault(require("../components/NewNote"));
+
+var _NoteList = _interopRequireDefault(require("../components/NoteList"));
+
+var _Error = _interopRequireDefault(require("../components/Error"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Notes = function Notes(_ref) {
+  var reloadHasError = _ref.reloadHasError;
+  return _react.default.createElement("h1", null, "Notes");
+  /*
+    if (reloadHasError) {
+    return <Error onRetry={this.handleReload} />;
+  }
+  return (
+    <Fragment>
+      <NewNote onAddNote={this.handleAddNote} />
+      <NoteList
+        notes={notes}
+        onMove={this.handleMove}
+        onDelete={this.handleDelete}
+        onEdit={this.handleEdit}
+      />
+    </Fragment>
+  );
+  */
+};
+
+var _default = Notes;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../components/NewNote":"components/NewNote.js","../components/NoteList":"components/NoteList.js","../components/Error":"components/Error.js"}],"services/NoteService.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35160,84 +35298,7 @@ function () {
 
 var _default = NoteService;
 exports.default = _default;
-},{}],"components/Error.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Error = function Error(_ref) {
-  var onRetry = _ref.onRetry;
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Ops!"), _react.default.createElement("p", null, "Ocorreu um erro inesperado ao carregar a lista de notas."), _react.default.createElement("button", {
-    className: "error_button",
-    onClick: onRetry
-  }, "Tentar novamente"));
-};
-
-var _default = Error;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"components/NavigationDrawer.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _reactRouterDom = require("react-router-dom");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NaviagtionDrawer = function NaviagtionDrawer(_ref) {
-  var isOpen = _ref.isOpen,
-      onCloseMenu = _ref.onCloseMenu,
-      history = _ref.history;
-  return _react.default.createElement("div", {
-    className: (0, _classnames.default)("navigation-drawer", {
-      "navigation-drawer--open": isOpen
-    })
-  }, _react.default.createElement("div", {
-    className: "navigation-drawer_head"
-  }, _react.default.createElement("button", {
-    className: "navigation-drawer_head_button",
-    onClick: onCloseMenu
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "close"))), _react.default.createElement("div", {
-    className: "navigation-drawer_menu"
-  }, _react.default.createElement("button", {
-    className: "navigation-drawer_menu_item",
-    onClick: function onClick() {
-      onCloseMenu();
-      history.push("/");
-    }
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "note"), "Notas"), _react.default.createElement("button", {
-    className: "navigation-drawer_menu_item",
-    onClick: function onClick() {
-      onCloseMenu();
-      history.push("/about");
-    }
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "info"), "Sobre")));
-};
-
-var _default = (0, _reactRouterDom.withRouter)(NaviagtionDrawer);
-
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/App.js":[function(require,module,exports) {
+},{}],"containers/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35247,19 +35308,19 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _v = _interopRequireDefault(require("uuid/v1"));
 
-var _NewNote = _interopRequireDefault(require("./NewNote"));
+var _AppBar = _interopRequireDefault(require("../components/AppBar"));
 
-var _NoteList = _interopRequireDefault(require("./NoteList"));
+var _NavigationDrawer = _interopRequireDefault(require("../components/NavigationDrawer"));
 
-var _AppBar = _interopRequireDefault(require("./AppBar"));
+var _About = _interopRequireDefault(require("./About"));
+
+var _Notes = _interopRequireDefault(require("./Notes"));
 
 var _NoteService = _interopRequireDefault(require("../services/NoteService"));
-
-var _Error = _interopRequireDefault(require("./Error"));
-
-var _NavigationDrawer = _interopRequireDefault(require("./NavigationDrawer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35431,7 +35492,7 @@ function (_React$Component) {
           isMenuOpen = _this$state.isMenuOpen,
           reloadHasError = _this$state.reloadHasError,
           saveHasError = _this$state.saveHasError;
-      return _react.default.createElement("div", null, _react.default.createElement(_AppBar.default, {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", null, _react.default.createElement(_AppBar.default, {
         isLoading: isLoading,
         saveHasError: saveHasError,
         onSaveRetry: function onSaveRetry() {
@@ -35440,17 +35501,21 @@ function (_React$Component) {
         onOpenMenu: this.handleOpenMenu
       }), _react.default.createElement("div", {
         className: "container"
-      }, _react.default.createElement(Router, null, _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(Route, {
+      }, _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactRouterDom.Route, {
         path: "/",
         exact: true,
-        component: App
-      }), _react.default.createElement(Route, {
+        render: function render(props) {
+          return _react.default.createElement(_Notes.default, {
+            onRetry: _this2.handleReload
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/about",
-        component: About
-      })))), _react.default.createElement(_NavigationDrawer.default, {
+        component: _About.default
+      }))), _react.default.createElement(_NavigationDrawer.default, {
         isOpen: isMenuOpen,
         onCloseMenu: this.handleCloseMenu
-      }));
+      })));
     }
   }]);
 
@@ -35459,45 +35524,21 @@ function (_React$Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","uuid/v1":"../node_modules/uuid/v1.js","./NewNote":"components/NewNote.js","./NoteList":"components/NoteList.js","./AppBar":"components/AppBar.js","../services/NoteService":"services/NoteService.js","./Error":"components/Error.js","./NavigationDrawer":"components/NavigationDrawer.js"}],"components/About.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var About = function About() {
-  return _react.default.createElement("div", {
-    className: "about"
-  }, _react.default.createElement("h1", null, "Note.js"));
-};
-
-var _default = About;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","uuid/v1":"../node_modules/uuid/v1.js","../components/AppBar":"components/AppBar.js","../components/NavigationDrawer":"components/NavigationDrawer.js","./About":"containers/About.js","./Notes":"containers/Notes.js","../services/NoteService":"services/NoteService.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _reactRouterDom = require("react-router-dom");
-
 require("./index.scss");
 
-var _App = _interopRequireDefault(require("./components/App"));
-
-var _About = _interopRequireDefault(require("./components/About"));
+var _App = _interopRequireDefault(require("./containers/App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./index.scss":"index.scss","./components/App":"components/App.js","./components/About":"components/About.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./index.scss":"index.scss","./containers/App":"containers/App.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35525,7 +35566,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38161" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34025" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

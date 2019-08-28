@@ -2,13 +2,11 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import uuid from "uuid/v1";
 
-import NewNote from "./NewNote";
-import NoteList from "./NoteList";
-import AppBar from "./AppBar";
+import AppBar from "../components/AppBar";
+import NaviagtionDrawer from "../components/NavigationDrawer";
+import About from "./About";
+import Notes from "./Notes";
 import NoteService from "../services/NoteService";
-import Error from "./Error";
-import NaviagtionDrawer from "./NavigationDrawer";
-import About from "./components/About";
 
 class App extends React.Component {
   state = {
@@ -122,30 +120,36 @@ class App extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <AppBar
-          isLoading={isLoading}
-          saveHasError={saveHasError}
-          onSaveRetry={() => {
-            this.handleSave(notes);
-          }}
-          onOpenMenu={this.handleOpenMenu}
-        />
-        <div className="container">
-          <Router>
+      <Router>
+        <div>
+          <AppBar
+            isLoading={isLoading}
+            saveHasError={saveHasError}
+            onSaveRetry={() => {
+              this.handleSave(notes);
+            }}
+            onOpenMenu={this.handleOpenMenu}
+          />
+          <div className="container">
             <React.Fragment>
-              <Route path="/" exact component={App} />
+              <Route
+                path="/"
+                exact
+                render={props => <Notes onRetry={this.handleReload} />}
+              />
               <Route path="/about" component={About} />
             </React.Fragment>
-          </Router>
+          </div>
+          <NaviagtionDrawer
+            isOpen={isMenuOpen}
+            onCloseMenu={this.handleCloseMenu}
+          />
         </div>
-        <NaviagtionDrawer
-          isOpen={isMenuOpen}
-          onCloseMenu={this.handleCloseMenu}
-        />
-      </div>
+      </Router>
     );
   }
 }
 
 export default App;
+
+25. 5:36
