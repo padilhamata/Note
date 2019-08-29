@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./error.scss";
+
 const Error = ({ onRetry }) => (
   <div>
     <h1>Ops!</h1>

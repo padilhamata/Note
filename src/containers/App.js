@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import uuid from "uuid/v1";
 
-import AppBar from "../components/AppBar";
-import NaviagtionDrawer from "../components/NavigationDrawer";
+import { AppBar, NavigationDrawer } from "../components";
+
 import About from "./About";
 import Notes from "./Notes";
 import NoteService from "../services/NoteService";
@@ -135,7 +135,17 @@ class App extends React.Component {
               <Route
                 path="/"
                 exact
-                render={props => <Notes onRetry={this.handleReload} />}
+                render={props => (
+                  <Notes
+                    notes={notes}
+                    reloadHasError={reloadHasError}
+                    onRetry={this.handleReload}
+                    onAddNote={this.handleAddNote}
+                    onMove={this.handleMove}
+                    onDelete={this.handleDelete}
+                    onEdit={this.handleEdit}
+                  />
+                )}
               />
               <Route path="/about" component={About} />
             </React.Fragment>
@@ -151,5 +161,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-25. 5:36
