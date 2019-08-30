@@ -1,78 +1,7 @@
-@import "styles/variables.scss";
-@import "styles/mixin.scss";
-
 body {
   background-color: #e8e8e8;
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
   color: #212121;
-}
-
-.about {
-  text-align: center;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 70px $app-padding;
-  max-width: $container-max-width;
-}
-.new-note {
-  background-color: #fff;
-  padding: 10px 12px;
-  border-radius: 2px;
-  @include box-shadow(1);
-  &_input {
-    width: 100%;
-    border: none;
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
-.note-list {
-  margin: 40px 0;
-}
-
-.note {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: #fff;
-  padding: 10px 12px;
-  border-radius: 2px;
-  @include box-shadow(1);
-
-  &_text {
-    flex: 1;
-  }
-
-  &_input {
-    flex: 1;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    border-bottom: 1px solid #c7c7c7;
-  }
-
-  &_button {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-
-    &--hidden {
-      visibility: hidden;
-    }
-
-    &--red {
-      color: $color-danger;
-    }
-
-    &--green {
-      color: $color-sucess;
-    }
-  }
 }

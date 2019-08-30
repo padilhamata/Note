@@ -96,4 +96,3 @@ class Note extends React.Component {
 }
 
 export default Note;
-29 10:59
