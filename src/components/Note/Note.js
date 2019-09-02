@@ -1,6 +1,7 @@
 import React from "react";
 import className from "classnames";
 
+import "./note.scss";
 class Note extends React.Component {
   state = {
     isEditing: false
@@ -42,13 +43,13 @@ class Note extends React.Component {
               className="note_button note_button--red"
               onClick={this.handleCancel}
             >
-              <i class="material-icons">cancel</i>
+              <i className="material-icons">cancel</i>
             </button>
             <button
               className="note_button note_button--green"
               onClick={this.handleSave}
             >
-              <i class="material-icons">done_outline</i>
+              <i className="material-icons">done_outline</i>
             </button>
           </React.Fragment>
         )}
@@ -57,7 +58,7 @@ class Note extends React.Component {
           className="note_button"
           onClick={this.handleEdit}
         >
-          <i class="material-icons">edit</i>
+          <i className="material-icons">edit</i>
         </button>
         <button
           disabled={isEditing}
@@ -66,7 +67,7 @@ class Note extends React.Component {
             onDelete(note.id);
           }}
         >
-          <i class="material-icons">delete</i>
+          <i className="material-icons">delete</i>
         </button>
 
         <button
@@ -77,7 +78,7 @@ class Note extends React.Component {
             onMove("up", index);
           }}
         >
-          <i class="material-icons">arrow_upward</i>
+          <i className="material-icons">arrow_upward</i>
         </button>
 
         <button
@@ -88,7 +89,7 @@ class Note extends React.Component {
             onMove("down", index);
           }}
         >
-          <i class="material-icons">arrow_downward</i>
+          <i className="material-icons">arrow_downward</i>
         </button>
       </div>
     );

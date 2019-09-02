@@ -29,10 +29,19 @@ const NaviagtionDrawer = ({ isOpen, onCloseMenu, history }) => (
         className="navigation-drawer_menu_item"
         onClick={() => {
           onCloseMenu();
-          history.push("/about");
+          history.push("/settings");
         }}
       >
         <i className="material-icons">info</i>Sobre
+      </button>
+      <button
+        className="navigation-drawer_menu_item"
+        onClick={() => {
+          onCloseMenu();
+          history.push("/about");
+        }}
+      >
+        <i className="material-icons">settings</i>Configurações
       </button>
     </div>
   </div>

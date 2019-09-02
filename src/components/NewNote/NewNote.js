@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./new-note.scss";
 class NewNote extends React.Component {
   state = {
     text: ""

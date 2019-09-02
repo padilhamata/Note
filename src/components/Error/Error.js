@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./error.scss";
+import Button from "../Button/Button";
+import Hearder from "../Header/Header";
+import Center from "../Center/Center";
 
 const Error = ({ onRetry }) => (
   <div>
-    <h1>Ops!</h1>
+    <Hearder centered>Ops!</Hearder>
     <p>Ocorreu um erro inesperado ao carregar a lista de notas.</p>
-    <button className="error_button" onClick={onRetry}>
-      Tentar novamente
-    </button>
+    <Button onClick={onRetry}>Tentar novamente</Button>
   </div>
 );
 

@@ -34732,12 +34732,12 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/rng":"../node_modules/uuid/lib/rng-browser.js","./lib/bytesToUuid":"../node_modules/uuid/lib/bytesToUuid.js"}],"components/Error/error.scss":[function(require,module,exports) {
+},{"./lib/rng":"../node_modules/uuid/lib/rng-browser.js","./lib/bytesToUuid":"../node_modules/uuid/lib/bytesToUuid.js"}],"components/Button/button.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Error/Error.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Button/Button.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34747,21 +34747,172 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-require("./error.scss");
+require("./button.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Button = function Button(_ref) {
+  var children = _ref.children,
+      onClick = _ref.onClick;
+  return _react.default.createElement("button", {
+    className: "button",
+    onClick: onClick
+  }, children);
+};
+
+var _default = Button;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./button.scss":"components/Button/button.scss"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
+var define;
+/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		// register as 'classnames', consistent with npm package name
+		define('classnames', [], function () {
+			return classNames;
+		});
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+},{}],"components/Header/header.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Header/Header.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+require("./header.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Header = function Header(_ref) {
+  var children = _ref.children,
+      centered = _ref.centered;
+  return _react.default.createElement("h1", {
+    className: (0, _classnames.default)("header", {
+      "header--centered": centered
+    })
+  }, children);
+};
+
+var _default = Header;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","./header.scss":"components/Header/header.scss"}],"components/Center/center.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Center/Center.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./center.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Center = function Center(_ref) {
+  var children = _ref.children;
+  return _react.default.createElement("div", {
+    className: "center"
+  }, children);
+};
+
+var _default = Center;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./center.scss":"components/Center/center.scss"}],"components/Error/Error.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Button = _interopRequireDefault(require("../Button/Button"));
+
+var _Header = _interopRequireDefault(require("../Header/Header"));
+
+var _Center = _interopRequireDefault(require("../Center/Center"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Error = function Error(_ref) {
   var onRetry = _ref.onRetry;
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Ops!"), _react.default.createElement("p", null, "Ocorreu um erro inesperado ao carregar a lista de notas."), _react.default.createElement("button", {
-    className: "error_button",
+  return _react.default.createElement("div", null, _react.default.createElement(_Header.default, {
+    centered: true
+  }, "Ops!"), _react.default.createElement("p", null, "Ocorreu um erro inesperado ao carregar a lista de notas."), _react.default.createElement(_Button.default, {
     onClick: onRetry
   }, "Tentar novamente"));
 };
 
 var _default = Error;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./error.scss":"components/Error/error.scss"}],"components/NewNote/NewNote.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Button/Button":"components/Button/Button.js","../Header/Header":"components/Header/Header.js","../Center/Center":"components/Center/Center.js"}],"components/NewNote/new-note.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/NewNote/NewNote.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34770,6 +34921,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+require("./new-note.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34851,62 +35004,12 @@ function (_React$Component) {
 
 var _default = NewNote;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
-var define;
-/*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
+},{"react":"../node_modules/react/index.js","./new-note.scss":"components/NewNote/new-note.scss"}],"components/Note/note.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
 
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
-				var inner = classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-		// register as 'classnames', consistent with npm package name
-		define('classnames', [], function () {
-			return classNames;
-		});
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-},{}],"components/Note/Note.js":[function(require,module,exports) {
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Note/Note.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34917,6 +35020,8 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
+
+require("./note.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35003,18 +35108,18 @@ function (_React$Component) {
         className: "note_button note_button--red",
         onClick: this.handleCancel
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "cancel")), _react.default.createElement("button", {
         className: "note_button note_button--green",
         onClick: this.handleSave
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "done_outline"))), _react.default.createElement("button", {
         disabled: isEditing,
         className: "note_button",
         onClick: this.handleEdit
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "edit")), _react.default.createElement("button", {
         disabled: isEditing,
         className: "note_button",
@@ -35022,7 +35127,7 @@ function (_React$Component) {
           onDelete(note.id);
         }
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "delete")), _react.default.createElement("button", {
         className: (0, _classnames.default)("note_button", {
           "note_button--hidden": index === 0
@@ -35031,7 +35136,7 @@ function (_React$Component) {
           onMove("up", index);
         }
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "arrow_upward")), _react.default.createElement("button", {
         className: (0, _classnames.default)("note_button", {
           "note_button--hidden": index === total - 1
@@ -35040,7 +35145,7 @@ function (_React$Component) {
           onMove("down", index);
         }
       }, _react.default.createElement("i", {
-        "class": "material-icons"
+        className: "material-icons"
       }, "arrow_downward")));
     }
   }]);
@@ -35050,7 +35155,7 @@ function (_React$Component) {
 
 var _default = Note;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"components/NoteList/note-list.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","./note.scss":"components/Note/note.scss"}],"components/NoteList/note-list.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -35194,11 +35299,19 @@ var NaviagtionDrawer = function NaviagtionDrawer(_ref) {
     className: "navigation-drawer_menu_item",
     onClick: function onClick() {
       onCloseMenu();
+      history.push("/settings");
+    }
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "info"), "Sobre"), _react.default.createElement("button", {
+    className: "navigation-drawer_menu_item",
+    onClick: function onClick() {
+      onCloseMenu();
       history.push("/about");
     }
   }, _react.default.createElement("i", {
     className: "material-icons"
-  }, "info"), "Sobre")));
+  }, "settings"), "Configura\xE7\xF5es")));
 };
 
 var _default = (0, _reactRouterDom.withRouter)(NaviagtionDrawer);
@@ -35250,12 +35363,7 @@ var PageLayout = function PageLayout(_ref) {
 
 var _default = PageLayout;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../AppBar/AppBar":"components/AppBar/AppBar.js","../NavigationDrawer/NavigationDrawer":"components/NavigationDrawer/NavigationDrawer.js","./page-layout.scss":"components/PageLayout/page-layout.scss"}],"components/Header/header.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Header/Header.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../AppBar/AppBar":"components/AppBar/AppBar.js","../NavigationDrawer/NavigationDrawer":"components/NavigationDrawer/NavigationDrawer.js","./page-layout.scss":"components/PageLayout/page-layout.scss"}],"components/Button/ButtonLink.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35265,21 +35373,24 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-require("./header.scss");
+var _reactRouterDom = require("react-router-dom");
+
+require("./button.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Header = function Header(_ref) {
+var ButtonLink = function ButtonLink(_ref) {
   var children = _ref.children,
-      centered = _ref.centered;
-  return _react.default.createElement("h1", {
-    className: "header"
+      to = _ref.to;
+  return _react.default.createElement(_reactRouterDom.Link, {
+    className: "button",
+    to: to
   }, children);
 };
 
-var _default = Header;
+var _default = ButtonLink;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./header.scss":"components/Header/header.scss"}],"components/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./button.scss":"components/Button/button.scss"}],"components/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35321,6 +35432,24 @@ Object.defineProperty(exports, "Header", {
     return _Header.default;
   }
 });
+Object.defineProperty(exports, "Button", {
+  enumerable: true,
+  get: function () {
+    return _Button.default;
+  }
+});
+Object.defineProperty(exports, "Center", {
+  enumerable: true,
+  get: function () {
+    return _Center.default;
+  }
+});
+Object.defineProperty(exports, "ButtonLink", {
+  enumerable: true,
+  get: function () {
+    return _ButtonLink.default;
+  }
+});
 
 var _Error = _interopRequireDefault(require("./Error/Error"));
 
@@ -35334,78 +35463,14 @@ var _PageLayout = _interopRequireDefault(require("./PageLayout/PageLayout"));
 
 var _Header = _interopRequireDefault(require("./Header/Header"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Error/Error":"components/Error/Error.js","./NewNote/NewNote":"components/NewNote/NewNote.js","./Note/Note":"components/Note/Note.js","./NoteList/NoteList":"components/NoteList/NoteList.js","./PageLayout/PageLayout":"components/PageLayout/PageLayout.js","./Header/Header":"components/Header/Header.js"}],"containers/About/about.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+var _Button = _interopRequireDefault(require("./Button/Button"));
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"containers/About/About.js":[function(require,module,exports) {
-"use strict";
+var _Center = _interopRequireDefault(require("./Center/Center"));
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _components = require("../../components");
-
-require("./about.scss");
+var _ButtonLink = _interopRequireDefault(require("./Button/ButtonLink"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var About = function About() {
-  return _react.default.createElement("div", {
-    className: "about"
-  }, _react.default.createElement(_components.Header, null, "Note.js"));
-};
-
-var _default = About;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","../../components":"components/index.js","./about.scss":"containers/About/about.scss"}],"containers/Notes/Notes.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _components = require("../../components");
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-var Notes = function Notes(_ref) {
-  var reloadHasError = _ref.reloadHasError,
-      onRetry = _ref.onRetry,
-      onAddNote = _ref.onAddNote,
-      notes = _ref.notes,
-      onDelete = _ref.onDelete,
-      onMove = _ref.onMove,
-      onEdit = _ref.onEdit;
-
-  if (reloadHasError) {
-    return _react.default.createElement(_components.Error, {
-      onRetry: onRetry
-    });
-  }
-
-  return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_components.NewNote, {
-    onAddNote: onAddNote
-  }), _react.default.createElement(_components.NoteList, {
-    notes: notes,
-    onDelete: onDelete,
-    onMove: onMove,
-    onEdit: onEdit
-  }));
-};
-
-var _default = Notes;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","../../components":"components/index.js"}],"services/NoteService.js":[function(require,module,exports) {
+},{"./Error/Error":"components/Error/Error.js","./NewNote/NewNote":"components/NewNote/NewNote.js","./Note/Note":"components/Note/Note.js","./NoteList/NoteList":"components/NoteList/NoteList.js","./PageLayout/PageLayout":"components/PageLayout/PageLayout.js","./Header/Header":"components/Header/Header.js","./Button/Button":"components/Button/Button.js","./Center/Center":"components/Center/Center.js","./Button/ButtonLink":"components/Button/ButtonLink.js"}],"services/NoteService.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35466,7 +35531,149 @@ function () {
 
 var _default = NoteService;
 exports.default = _default;
-},{}],"containers/App/App.js":[function(require,module,exports) {
+},{}],"containers/About/About.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _components = require("../../components");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var About = function About() {
+  return _react.default.createElement("div", null, _react.default.createElement(_components.Header, {
+    centered: true
+  }, "Note.js"));
+};
+
+var _default = About;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../../components":"components/index.js"}],"containers/Notes/Notes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _components = require("../../components");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+var Notes = function Notes(_ref) {
+  var reloadHasError = _ref.reloadHasError,
+      onRetry = _ref.onRetry,
+      onAddNote = _ref.onAddNote,
+      notes = _ref.notes,
+      onDelete = _ref.onDelete,
+      onMove = _ref.onMove,
+      onEdit = _ref.onEdit;
+
+  if (reloadHasError) {
+    return _react.default.createElement(_components.Error, {
+      onRetry: onRetry
+    });
+  }
+
+  return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_components.NewNote, {
+    onAddNote: onAddNote
+  }), _react.default.createElement(_components.NoteList, {
+    notes: notes,
+    onDelete: onDelete,
+    onMove: onMove,
+    onEdit: onEdit
+  }));
+};
+
+var _default = Notes;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../../components":"components/index.js"}],"containers/PageNotFound/PageNotFound.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _components = require("../../components");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PageNotFound = function PageNotFound() {
+  _react.default.createElement(_components.Center, null, _react.default.createElement(_components.Header, null, "Ops!"), ";", _react.default.createElement(Button, null, "Voltar para o inicio"), _react.default.createElement(_components.ButtonLink, {
+    to: "/"
+  }, "Voltar para o inicio"));
+};
+
+var _default = PageNotFound;
+exports.default = _default;
+34;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../components":"components/index.js"}],"containers/Routes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _About = _interopRequireDefault(require("./About/About"));
+
+var _Notes = _interopRequireDefault(require("./Notes/Notes"));
+
+var _PageNotFound = _interopRequireDefault(require("./PageNotFound/PageNotFound"));
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Routes = function Routes(_ref) {
+  var notes = _ref.notes,
+      reloadHasError = _ref.reloadHasError,
+      onRetry = _ref.onRetry,
+      onAddNote = _ref.onAddNote,
+      onMove = _ref.onMove,
+      onDelete = _ref.onDelete,
+      onEdit = _ref.onEdit;
+  return _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+    path: "/",
+    exact: true,
+    render: function render(props) {
+      return _react.default.createElement(_Notes.default, _extends({
+        notes: notes,
+        reloadHasError: reloadHasError,
+        onRetry: onRetry,
+        onAddNote: onAddNote,
+        onMove: onMove,
+        onDelete: onDelete,
+        onEdit: onEdit
+      }, props));
+    }
+  }), _react.default.createElement(_reactRouterDom.Route, {
+    path: "/about",
+    component: _About.default
+  }), _react.default.createElement(_reactRouterDom.Route, {
+    component: _PageNotFound.default
+  }));
+};
+
+var _default = Routes;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./About/About":"containers/About/About.js","./Notes/Notes":"containers/Notes/Notes.js","./PageNotFound/PageNotFound":"containers/PageNotFound/PageNotFound.js"}],"containers/App/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35482,11 +35689,9 @@ var _v = _interopRequireDefault(require("uuid/v1"));
 
 var _components = require("../../components");
 
-var _About = _interopRequireDefault(require("../About/About"));
-
-var _Notes = _interopRequireDefault(require("../Notes/Notes"));
-
 var _NoteService = _interopRequireDefault(require("../../services/NoteService"));
+
+var _Routes = _interopRequireDefault(require("../Routes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35665,24 +35870,15 @@ function (_React$Component) {
         onOpenMenu: this.handleOpenMenu,
         osMenuOpen: isMenuOpen,
         onCloseMenu: this.handleCloseMenu
-      }, _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactRouterDom.Route, {
-        path: "/",
-        exact: true,
-        render: function render(props) {
-          return _react.default.createElement(_Notes.default, {
-            notes: notes,
-            reloadHasError: reloadHasError,
-            onRetry: _this2.handleReload,
-            onAddNote: _this2.handleAddNote,
-            onMove: _this2.handleMove,
-            onDelete: _this2.handleDelete,
-            onEdit: _this2.handleEdit
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/about",
-        component: _About.default
-      }))));
+      }, _react.default.createElement(_Routes.default, {
+        notes: notes,
+        reloadHasError: reloadHasError,
+        onRetry: this.handleReload,
+        onAddNote: this.handleAddNote,
+        onMove: this.handleMove,
+        onDelete: this.handleDelete,
+        onEdit: this.handleEdit
+      })));
     }
   }]);
 
@@ -35691,7 +35887,7 @@ function (_React$Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","uuid/v1":"../node_modules/uuid/v1.js","../../components":"components/index.js","../About/About":"containers/About/About.js","../Notes/Notes":"containers/Notes/Notes.js","../../services/NoteService":"services/NoteService.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","uuid/v1":"../node_modules/uuid/v1.js","../../components":"components/index.js","../../services/NoteService":"services/NoteService.js","../Routes":"containers/Routes.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -35733,7 +35929,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34549" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46413" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

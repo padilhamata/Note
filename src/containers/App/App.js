@@ -4,9 +4,8 @@ import uuid from "uuid/v1";
 
 import { PageLayout } from "../../components";
 
-import About from "../About/About";
-import Notes from "../Notes/Notes";
 import NoteService from "../../services/NoteService";
+import Routes from "../Routes";
 
 class App extends React.Component {
   state = {
@@ -131,24 +130,15 @@ class App extends React.Component {
           osMenuOpen={isMenuOpen}
           onCloseMenu={this.handleCloseMenu}
         >
-          <React.Fragment>
-            <Route
-              path="/"
-              exact
-              render={props => (
-                <Notes
-                  notes={notes}
-                  reloadHasError={reloadHasError}
-                  onRetry={this.handleReload}
-                  onAddNote={this.handleAddNote}
-                  onMove={this.handleMove}
-                  onDelete={this.handleDelete}
-                  onEdit={this.handleEdit}
-                />
-              )}
-            />
-            <Route path="/about" component={About} />
-          </React.Fragment>
+          <Routes
+            notes={notes}
+            reloadHasError={reloadHasError}
+            onRetry={this.handleReload}
+            onAddNote={this.handleAddNote}
+            onMove={this.handleMove}
+            onDelete={this.handleDelete}
+            onEdit={this.handleEdit}
+          />
         </PageLayout>
       </Router>
     );
