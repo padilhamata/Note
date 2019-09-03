@@ -1,31 +1,39 @@
-import React from 'react'
+import React from "react";
 
-import { Header} from "../../components"
+import { Header } from "../../components";
+import withSettings from "./withSettings";
 
-const themes =[
-    {label : "Padrâo"},
-    {label:"Clássico"}
-]
-const SettingsPage =()=>{
-    <div>
-<Header>Temas</Header>
-<div className="themes">
-{themes.map (themes=>(
-    <div className="themes_item">
-        <p>{themes.label}</p>
-        </div>
-))}
-<div className="themes">
-    <div className="themes__item">
-        <p>Padrão</p>
+import "./settings.scss";
+
+const themes = [
+  { key: "defalt", label: "Padrão" },
+  { key: "classic", label: "Clássico", colorPrimary: "#795548" }
+];
+
+const SettingsPage = ({ theme: selectedTheme, toggleTheme }) => (
+  <div>
+    <Header>Temas</Header>
+
+    <div className="themes">
+      {themes.map(theme => (
+        <button
+          key={theme.key}
+          className="themes__item"
+          style={{ backgroundColor: theme.colorPrimary }}
+          onClick={() => {
+            toggleTheme(theme);
+          }}
+        >
+          <p>
+            {theme.label}
+            {theme.key === selectedTheme.key && (
+              <i className="material-icons">check</i>
+            )}
+          </p>
+        </button>
+      ))}
     </div>
-</div>
-<div className="themes">
-    <div className="themes__item">
-        <p>Clássico</p>
-    </div>
-</div>
-</div>
-}
-export default SettingsPage;
-36 4:57
+  </div>
+);
+export default withSettings(SettingsPage);
+40 4:04
