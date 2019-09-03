@@ -1,32 +1,34 @@
-let failedLoadAttemps = 2;
-let failedSaveAttemps = 2;
+let failedLoadAttempts = 2;
+let failedSaveAttempts = 2;
 
 class NoteService {
   static load() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (failedLoadAttemps > 1) {
+        if (failedLoadAttempts > 1) {
           const notes = window.localStorage.getItem("notes");
           resolve(notes ? JSON.parse(notes) : []);
         } else {
           reject();
-          failedLoadAttemps++;
+          failedLoadAttempts++;
         }
       }, 2000);
     });
   }
+
   static save(notes) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (failedSaveAttemps > 1) {
+        if (failedSaveAttempts > 1) {
           window.localStorage.setItem("notes", JSON.stringify(notes));
           resolve();
         } else {
           reject();
-          failedSaveAttemps++;
+          failedSaveAttempts++;
         }
       }, 2000);
     });
   }
 }
+
 export default NoteService;

@@ -1,4 +1,6 @@
+@import "../../styles/variables.scss";
 @import "../../styles/mixin.scss";
+
 .navigation-drawer {
   position: fixed;
   top: 0;
@@ -12,25 +14,26 @@
   &--open {
     left: 0;
   }
-  &_head {
+
+  &__head {
     height: 46px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 12px;
 
-    &_button {
+    &__button {
       background-color: transparent;
       border: none;
       cursor: pointer;
     }
   }
 
-  &_menu {
+  &__menu {
     margin-top: 16px;
     padding: 0 8px;
 
-    &_item {
+    &__item {
       display: block;
       width: 100%;
       background-color: transparent;
@@ -40,12 +43,17 @@
       margin-bottom: 12px;
       cursor: pointer;
       padding: 6px 8px;
+
       i {
         margin-right: 8px;
       }
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.08);
+      }
+
+      &--active {
+        color: $color-primary;
       }
     }
   }

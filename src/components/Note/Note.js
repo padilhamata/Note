@@ -1,7 +1,8 @@
 import React from "react";
-import className from "classnames";
+import classNames from "classnames";
 
 import "./note.scss";
+
 class Note extends React.Component {
   state = {
     isEditing: false
@@ -21,32 +22,33 @@ class Note extends React.Component {
   };
 
   render() {
-    const { note, onEdit, onDelete, index, onMove, total } = this.props;
+    const { note, onDelete, index, onMove, total } = this.props;
     const { isEditing } = this.state;
+
     return (
       <div className="note">
         {isEditing ? (
           <input
             type="text"
-            className="note_input"
+            className="note__input"
             defaultValue={note.text}
             ref={c => {
               this.input = c;
             }}
           />
         ) : (
-          <span className="note_text">{note.text}</span>
+          <span className="note__text">{note.text}</span>
         )}
         {isEditing && (
           <React.Fragment>
             <button
-              className="note_button note_button--red"
+              className="note__button note__button--red"
               onClick={this.handleCancel}
             >
               <i className="material-icons">cancel</i>
             </button>
             <button
-              className="note_button note_button--green"
+              className="note__button note__button--green"
               onClick={this.handleSave}
             >
               <i className="material-icons">done_outline</i>
@@ -55,24 +57,23 @@ class Note extends React.Component {
         )}
         <button
           disabled={isEditing}
-          className="note_button"
+          className="note__button"
           onClick={this.handleEdit}
         >
           <i className="material-icons">edit</i>
         </button>
         <button
           disabled={isEditing}
-          className="note_button"
+          className="note__button"
           onClick={() => {
             onDelete(note.id);
           }}
         >
           <i className="material-icons">delete</i>
         </button>
-
         <button
-          className={className("note_button", {
-            "note_button--hidden": index === 0
+          className={classNames("note__button", {
+            "note__button--hidden": index === 0
           })}
           onClick={() => {
             onMove("up", index);
@@ -80,10 +81,9 @@ class Note extends React.Component {
         >
           <i className="material-icons">arrow_upward</i>
         </button>
-
         <button
-          className={className("note_button", {
-            "note_button--hidden": index === total - 1
+          className={classNames("note__button", {
+            "note__button--hidden": index === total - 1
           })}
           onClick={() => {
             onMove("down", index);

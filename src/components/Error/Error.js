@@ -1,15 +1,15 @@
 import React from "react";
 
 import Button from "../Button/Button";
-import Hearder from "../Header/Header";
+import Header from "../Header/Header";
 import Center from "../Center/Center";
 
 const Error = ({ onRetry }) => (
-  <div>
-    <Hearder centered>Ops!</Hearder>
+  <Center>
+    <Header centered>Ops!</Header>
     <p>Ocorreu um erro inesperado ao carregar a lista de notas.</p>
     <Button onClick={onRetry}>Tentar novamente</Button>
-  </div>
+  </Center>
 );
 
 export default Error;

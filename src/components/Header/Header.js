@@ -1,9 +1,10 @@
 import React from "react";
-import className from "classnames";
+import classNames from "classnames";
+
 import "./header.scss";
 
 const Header = ({ children, centered }) => (
-  <h1 className={className("header", { "header--centered": centered })}>
+  <h1 className={classNames("header", { "header--centered": centered })}>
     {children}
   </h1>
 );

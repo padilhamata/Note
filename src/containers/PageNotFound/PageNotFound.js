@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { Header, ButtonLink, Center } from "../../components";
-const PageNotFound = () => {
+import Travolta from "../../images/travolta.gif";
+import { Header, Button, ButtonLink, Center } from "../../components";
+
+const PageNotFound = () => (
   <Center>
-    <Header>Ops!</Header>;<Button>Voltar para o inicio</Button>
-    <ButtonLink to="/">Voltar para o inicio</ButtonLink>
-  </Center>;
-};
+    <Header>Ops!</Header>
+    <div>
+      <img src={Travolta} alt="John Travolta" width="200" />
+    </div>
+    <ButtonLink to="/">Voltar para o início</ButtonLink>
+  </Center>
+);
+
 export default PageNotFound;
-34;

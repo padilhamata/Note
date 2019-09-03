@@ -1,7 +1,7 @@
 import React from "react";
 
 import AppBar from "../AppBar/AppBar";
-import NaviagtionDrawer from "../NavigationDrawer/NavigationDrawer";
+import NavigationDrawer from "../NavigationDrawer/NavigationDrawer";
 
 import "./page-layout.scss";
 
@@ -12,7 +12,8 @@ const PageLayout = ({
   onSaveRetry,
   onOpenMenu,
   isMenuOpen,
-  onCloseMenu
+  onCloseMenu,
+  menu
 }) => (
   <div>
     <AppBar
@@ -21,9 +22,12 @@ const PageLayout = ({
       onSaveRetry={onSaveRetry}
       onOpenMenu={onOpenMenu}
     />
-
     <div className="container">{children}</div>
-    <NaviagtionDrawer isOpen={isMenuOpen} onCloseMenu={onCloseMenu} />
+    <NavigationDrawer
+      menu={menu}
+      isOpen={isMenuOpen}
+      onCloseMenu={onCloseMenu}
+    />
   </div>
 );
 

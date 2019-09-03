@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import uuid from "uuid/v1";
 
 import { PageLayout } from "../../components";
-
 import NoteService from "../../services/NoteService";
-import Routes from "../Routes";
+import Routes, { menu } from "../Routes";
 
 class App extends React.Component {
   state = {
@@ -27,7 +26,9 @@ class App extends React.Component {
   handleAddNote = text => {
     this.setState(prevState => {
       const notes = prevState.notes.concat({ id: uuid(), text });
+
       this.handleSave(notes);
+
       return { notes };
     });
   };
@@ -80,24 +81,24 @@ class App extends React.Component {
   };
 
   handleReload = () => {
-    this.setState({ isLoading: true, saveHasError: false });
+    this.setState({ isLoading: true, reloadHasError: false });
     NoteService.load()
       .then(notes => {
         this.setState({ notes, isLoading: false });
       })
       .catch(() => {
-        this.setState({ isLoading: false, saveHasError: true });
+        this.setState({ isLoading: false, reloadHasError: true });
       });
   };
 
   handleSave = notes => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, saveHasError: false });
     NoteService.save(notes)
       .then(() => {
         this.setState({ isLoading: false });
       })
       .catch(() => {
-        this.setState({ isLoading: false, reloadHasError: true });
+        this.setState({ isLoading: false, saveHasError: true });
       });
   };
 
@@ -127,8 +128,9 @@ class App extends React.Component {
             this.handleSave(notes);
           }}
           onOpenMenu={this.handleOpenMenu}
-          osMenuOpen={isMenuOpen}
+          isMenuOpen={isMenuOpen}
           onCloseMenu={this.handleCloseMenu}
+          menu={menu}
         >
           <Routes
             notes={notes}
